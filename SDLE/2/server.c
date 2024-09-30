@@ -1,5 +1,4 @@
 //  Hello World client
-#include "zhelpers.h"
 #include <zmq.h>
 #include <string.h>
 #include <stdio.h>
@@ -8,9 +7,9 @@
 int main (void)
 {
     printf ("Connecting to hello world server…\n");
-    void *context = zmq_ctx_new ();
-    void *requester = zmq_socket (context, ZMQ_REQ);
-    zmq_connect (requester, "tcp://localhost:5555");
+    void *context = zmq_ctx_new (); //Dar contexto
+    void *requester = zmq_socket (context, ZMQ_REQ); //Para poder criar o socket
+    zmq_connect (requester, "tcp://localhost:5555"); //Para determinar que é requester
 
     int request_nbr;
     for (request_nbr = 0; request_nbr != 10; request_nbr++) {
