@@ -1,4 +1,5 @@
 //  Hello World server
+#include "zhelpers.h"
 #include <zmq.h>
 #include <string.h>
 #include <stdio.h>
