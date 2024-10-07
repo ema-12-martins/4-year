@@ -2,27 +2,20 @@ import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyTable } from './MyTable.js';
 import { MyChair } from './MyChair.js';
+import { MyPlane } from './MyPlane.js'; // Importa a nova classe MyPlane
 
 class MyContents {
     constructor(app) {
         this.app = app;
         this.axis = null;
 
-        // Cria uma instância dos objetos grupo
+        // Cria instâncias dos objetos grupo
         this.table = new MyTable(app);
         this.chair = new MyChair(app);
+        this.plane = new MyPlane(app); // Adiciona a instância do plano
 
-
-        // Atributos relacionados ao plano
-        this.diffusePlaneColor = "#00ffff";
-        this.specularPlaneColor = "#777777";
-        this.planeShininess = 30;
-        this.planeMaterial = new THREE.MeshPhongMaterial({
-            color: this.diffusePlaneColor,
-            specular: this.specularPlaneColor,
-            emissive: "#000000",
-            shininess: this.planeShininess
-        });
+        // Inicializa o plano
+        this.plane.buildPlane(); // Constrói o plano
     }
 
     init() {
@@ -43,28 +36,18 @@ class MyContents {
 
         this.table.buildTable(); // Construir a mesa
         this.chair.buildChair(); // Construir a cadeira
-
-
-        let plane = new THREE.PlaneGeometry(20, 20);
-        this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
-        this.planeMesh.rotation.x = -Math.PI / 2;
-        this.planeMesh.position.y = 0;
-        this.app.scene.add(this.planeMesh);
     }
 
     updateDiffusePlaneColor(value) {
-        this.diffusePlaneColor = value;
-        this.planeMaterial.color.set(this.diffusePlaneColor);
+        this.plane.updateDiffuseColor(value); // Atualiza a cor difusa do plano
     }
 
     updateSpecularPlaneColor(value) {
-        this.specularPlaneColor = value;
-        this.planeMaterial.specular.set(this.specularPlaneColor);
+        this.plane.updateSpecularColor(value); // Atualiza a cor especular do plano
     }
 
     updatePlaneShininess(value) {
-        this.planeShininess = value;
-        this.planeMaterial.shininess = this.planeShininess;
+        this.plane.updateShininess(value); // Atualiza o brilho do plano
     }
 
     update() {

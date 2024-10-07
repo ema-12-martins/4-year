@@ -37,7 +37,6 @@ class MyGuiInterface {
         tableFolder.add(this.contents.table, 'tableEnable').name("Enabled").onChange(() => { this.contents.table.rebuildTable(); });
         chairFolder.add(this.contents.chair, 'chairEnable').name("Enabled").onChange(() => { this.contents.chair.rebuildChair(); });
 
-
         // Controle das propriedades de deslocamento dos grupos
         tableFolder.add(this.contents.table.tableDisplacement, 'x', -10, 10).name("Table X");
         tableFolder.add(this.contents.table.tableDisplacement, 'y', -10, 10).name("Table Y");
@@ -63,15 +62,15 @@ class MyGuiInterface {
         chairFolder.open();
 
         const data = {
-            'diffuse color': this.contents.diffusePlaneColor,
-            'specular color': this.contents.specularPlaneColor,
+            'diffuse color': this.contents.plane.diffuseColor,
+            'specular color': this.contents.plane.specularColor,
         };
 
         // Adiciona uma pasta para o plano
         const planeFolder = this.datgui.addFolder('Plane');
-        planeFolder.addColor(data, 'diffuse color').onChange((value) => { this.contents.updateDiffusePlaneColor(value); });
-        planeFolder.addColor(data, 'specular color').onChange((value) => { this.contents.updateSpecularPlaneColor(value); });
-        planeFolder.add(this.contents, 'planeShininess', 0, 1000).name("Shininess").onChange((value) => { this.contents.updatePlaneShininess(value); });
+        planeFolder.addColor(data, 'diffuse color').onChange((value) => { this.contents.plane.updateDiffuseColor(value); });
+        planeFolder.addColor(data, 'specular color').onChange((value) => { this.contents.plane.updateSpecularColor(value); });
+        planeFolder.add(this.contents.plane, 'shininess', 0, 1000).name("Shininess").onChange((value) => { this.contents.plane.updateShininess(value); });
         planeFolder.open();
 
         // Adiciona uma pasta para a câmera
