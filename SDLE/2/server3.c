@@ -1,25 +1,29 @@
-//  Hello World server
+//  Hello World server (simplified with zhelpers.h)
 #include <zmq.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <string.h>
 #include <assert.h>
 #include "zhelpers.h"
 
 int main (void)
 {
     //  Socket to talk to clients
-    void *context = zmq_ctx_new ();
-    void *responder = zmq_socket (context, ZMQ_REP);
-    int rc = zmq_bind (responder, "tcp://*:5555");
-    assert (rc == 0);
+    void *context = zmq_ctx_new();
+    void *responder = zmq_socket(context, ZMQ_REP);
+    int rc = zmq_bind(responder, "tcp://*:5555");
+    assert(rc == 0);
 
     while (1) {
-        char buffer [10];
-        zmq_recv (responder, buffer, 10, 0);
-        printf ("Received Hello\n");
-        sleep (1);          //  Do some 'work'
-        zmq_send (responder, "World", 5, 0);
+        char *request = s_recv(responder);  // Simplified receive
+        printf("Received Hello\n");
+        free(request);  // Free the dynamically allocated request
+        
+        sleep(1);  // Simulate some 'work'
+        
+        s_send(responder, "World");  // Simplified send
     }
+
+    zmq_close(responder);
+    zmq_ctx_destroy(context);
     return 0;
 }

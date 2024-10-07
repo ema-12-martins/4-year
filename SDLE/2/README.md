@@ -14,6 +14,8 @@ Try adding another server and see the distribution of requests
 Try killing and re-starting the server
 - Se matar o server enquanto tiver a comunicar com o server, tentar reiniciar ele nao consegue ligar ao mano.
 
+Para termos dois servidores a dar bind, tem de estar em portas diferentes. Podemos ter 2 connects no mesmo request, podemos ter 2 replies. A queue vai ser dividida para receber os 2 pedidos, distruibuindo-os pela mesma.
+
 # Sacar zhelpers.h 
 ~~~
 git clone https://github.com/imatix/zguide.git
