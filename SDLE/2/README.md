@@ -5,9 +5,14 @@ gcc server.c -o server -lzmq
 ~~~
 
 # Resultados
-Se meter dois servers a correr, eles comunicam entre sí.
+Try running the client rst and then the server
+- O client fica à espera do servidor correr.
 
-Se tentar matar o server e voltar a correr, é criado como se fosse um novo. 
+Try adding another server and see the distribution of requests
+- Nao dá para correr dois servers ao mesmo tempo porque estão a dar bind na merma porta.
+
+Try killing and re-starting the server
+- Se matar o server enquanto tiver a comunicar com o server, tentar reiniciar ele nao consegue ligar ao mano.
 
 # Sacar zhelpers.h 
 ~~~
