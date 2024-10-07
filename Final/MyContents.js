@@ -8,7 +8,7 @@ class MyContents {
         this.axis = null;
 
         // Cria uma instância de MyTable
-        this.box = new MyTable(app);
+        this.table = new MyTable(app);
 
         // Atributos relacionados ao plano
         this.diffusePlaneColor = "#00ffff";
@@ -38,7 +38,7 @@ class MyContents {
         const ambientLight = new THREE.AmbientLight(0x555555);
         this.app.scene.add(ambientLight);
 
-        this.box.buildTable(); // Construir a caixa
+        this.table.buildTable(); // Construir a caixa
 
         let plane = new THREE.PlaneGeometry(20, 20);
         this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
@@ -63,7 +63,7 @@ class MyContents {
     }
 
     update() {
-        this.box.update(); // Atualiza a caixa
+        this.table.update(); // Atualiza a caixa
     }
 }
 
