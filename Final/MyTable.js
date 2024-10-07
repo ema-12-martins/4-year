@@ -12,7 +12,13 @@ class MyTable {
         this.tableFoot2Displacement = new THREE.Vector3(-2, 2, 5);
         this.tableFoot3Displacement = new THREE.Vector3(2, 2, -5);
         this.tableFoot4Displacement = new THREE.Vector3(2, 2, 5);
-        
+
+        // Propriedades de tamanho
+        this.baseWidth = 6.0;
+        this.baseHeight = 1.0;
+        this.baseDepth = 12.0;
+        this.footRadius = 0.4;
+        this.footHeight = 5.0;
     }
 
     /**
@@ -27,13 +33,13 @@ class MyTable {
         });
 
         // Geometria da base da mesa
-        let box = new THREE.BoxGeometry(6.0, 12.0, 1);
+        let box = new THREE.BoxGeometry(12.0, 6.0, 1);
         this.tableBaseMesh = new THREE.Mesh(box, boxMaterial);
         this.tableBaseMesh.rotation.x = -Math.PI / 2;
         this.tableBaseMesh.position.copy(this.tableBaseDisplacement);
 
         // Geometria dos pés da mesa
-        let footGeometry = new THREE.CylinderGeometry(0.4, 0.4, 5.0, 40);
+        let footGeometry = new THREE.CylinderGeometry(this.footRadius, this.footRadius, this.footHeight, 40);
         this.foot1Mesh = new THREE.Mesh(footGeometry, boxMaterial);
         this.foot1Mesh.position.copy(this.tableFoot1Displacement);
 
