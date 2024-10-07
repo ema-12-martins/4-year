@@ -13,7 +13,7 @@ class MyTable {
         this.tableFoot3Displacement = new THREE.Vector3(2, 2, -5);
         this.tableFoot4Displacement = new THREE.Vector3(2, 2, 5);
 
-        // Propriedades de tamanho
+        // Propriedades de tamanho (mantain the proporcionality)
         this.baseWidth = 6.0;
         this.baseHeight = 1.0;
         this.baseDepth = 12.0;
@@ -33,7 +33,7 @@ class MyTable {
         });
 
         // Geometria da base da mesa
-        let box = new THREE.BoxGeometry(12.0, 6.0, 1);
+        let box = new THREE.BoxGeometry(6.0, 12.0, 1);
         this.tableBaseMesh = new THREE.Mesh(box, boxMaterial);
         this.tableBaseMesh.rotation.x = -Math.PI / 2;
         this.tableBaseMesh.position.copy(this.tableBaseDisplacement);

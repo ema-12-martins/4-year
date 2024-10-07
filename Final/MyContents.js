@@ -40,7 +40,7 @@ class MyContents {
 
         this.box.buildTable(); // Construir a caixa
 
-        let plane = new THREE.PlaneGeometry(10, 10);
+        let plane = new THREE.PlaneGeometry(20, 20);
         this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = 0;
