@@ -40,3 +40,6 @@ ZMQ_M56_T REQ;
 ZMQ_M56_INIT_SIZE(&REQ,S);
 ZMQ_M56_SED(&REQ,SRE,S);
 ~~~
+
+---
+Para termos dois servidores a dar bind, tem de estar em portas diferentes. Podemos ter 2 connects no mesmo request, podemos ter 2 replies. A queue vai ser dividida para receber os 2 pedidos, distruibuindo-os pela mesma.
