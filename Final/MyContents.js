@@ -1,14 +1,17 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyTable } from './MyTable.js';
+import { MyChair } from './MyChair.js';
 
 class MyContents {
     constructor(app) {
         this.app = app;
         this.axis = null;
 
-        // Cria uma instância de MyTable
+        // Cria uma instância dos objetos grupo
         this.table = new MyTable(app);
+        this.chair = new MyChair(app);
+
 
         // Atributos relacionados ao plano
         this.diffusePlaneColor = "#00ffff";
@@ -39,6 +42,8 @@ class MyContents {
         this.app.scene.add(ambientLight);
 
         this.table.buildTable(); // Construir a mesa
+        this.chair.buildChair(); // Construir a cadeira
+
 
         let plane = new THREE.PlaneGeometry(20, 20);
         this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
@@ -63,7 +68,8 @@ class MyContents {
     }
 
     update() {
-        this.table.update(); // Atualiza a mesa
+        this.table.update();
+        this.chair.update();
     }
 }
 

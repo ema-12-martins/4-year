@@ -31,21 +31,36 @@ class MyGuiInterface {
     init() {
         // Adiciona uma pasta para a mesa
         const tableFolder = this.datgui.addFolder('Table');
+        const chairFolder = this.datgui.addFolder('Chair');
 
-        // Controle de habilitação da mesa
+        // Controle de habilitação
         tableFolder.add(this.contents.table, 'tableEnable').name("Enabled").onChange(() => { this.contents.table.rebuildTable(); });
+        chairFolder.add(this.contents.chair, 'chairEnable').name("Enabled").onChange(() => { this.contents.chair.rebuildChair(); });
 
-        // Controle das propriedades de deslocamento da mesa inteira (Grupo)
+
+        // Controle das propriedades de deslocamento dos grupos
         tableFolder.add(this.contents.table.tableDisplacement, 'x', -10, 10).name("Table X");
         tableFolder.add(this.contents.table.tableDisplacement, 'y', -10, 10).name("Table Y");
         tableFolder.add(this.contents.table.tableDisplacement, 'z', -10, 10).name("Table Z");
 
-        // Controle das propriedades de tamanho da mesa
+        chairFolder.add(this.contents.chair.chairDisplacement, 'x', -10, 10).name("Chair X");
+        chairFolder.add(this.contents.chair.chairDisplacement, 'y', -10, 10).name("Chair Y");
+        chairFolder.add(this.contents.chair.chairDisplacement, 'z', -10, 10).name("Chair Z");
+
+        // Controle das propriedades dos grupos
         tableFolder.add(this.contents.table, 'baseWidth', 1.0, 20.0).name("Base Width").onChange(() => { this.contents.table.rebuildTable(); });
         tableFolder.add(this.contents.table, 'baseHeight', 0.5, 5.0).name("Base Height").onChange(() => { this.contents.table.rebuildTable(); });
         tableFolder.add(this.contents.table, 'baseDepth', 1.0, 20.0).name("Base Depth").onChange(() => { this.contents.table.rebuildTable(); });
 
+        chairFolder.add(this.contents.chair, 'baseWidth', 1.0, 20.0).name("Base Width").onChange(() => { this.contents.chair.rebuildChair(); });
+        chairFolder.add(this.contents.chair, 'baseHeight', 0.5, 5.0).name("Base Height").onChange(() => { this.contents.chair.rebuildChair(); });
+        chairFolder.add(this.contents.chair, 'baseDepth', 1.0, 20.0).name("Base Depth").onChange(() => { this.contents.chair.rebuildChair(); });
+        chairFolder.add(this.contents.chair, 'lateralWidth', 1.0, 20.0).name("Lateral Width").onChange(() => { this.contents.chair.rebuildChair(); });
+        chairFolder.add(this.contents.chair, 'lateralHeight', 0.5, 5.0).name("Lateral Height").onChange(() => { this.contents.chair.rebuildChair(); });
+        chairFolder.add(this.contents.chair, 'lateralDepth', 1.0, 20.0).name("Lateral Depth").onChange(() => { this.contents.chair.rebuildChair(); });
+
         tableFolder.open();
+        chairFolder.open();
 
         const data = {
             'diffuse color': this.contents.diffusePlaneColor,
