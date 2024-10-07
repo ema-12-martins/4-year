@@ -3,6 +3,7 @@ import { MyAxis } from './MyAxis.js';
 import { MyTable } from './MyTable.js';
 import { MyChair } from './MyChair.js';
 import { MyPlane } from './MyPlane.js'; // Importa a nova classe MyPlane
+import { MyCake } from './MyCake.js';
 
 class MyContents {
     constructor(app) {
@@ -12,10 +13,11 @@ class MyContents {
         // Cria instâncias dos objetos grupo
         this.table = new MyTable(app);
         this.chair = new MyChair(app);
-        this.plane = new MyPlane(app); // Adiciona a instância do plano
+        this.plane = new MyPlane(app);
+        this.cake = new MyCake(app);
 
         // Inicializa o plano
-        this.plane.buildPlane(); // Constrói o plano
+        this.plane.buildPlane(); 
     }
 
     init() {
@@ -53,6 +55,7 @@ class MyContents {
     update() {
         this.table.update();
         this.chair.update();
+        this.cake.update();
     }
 }
 

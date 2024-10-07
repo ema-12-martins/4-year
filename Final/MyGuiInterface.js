@@ -32,10 +32,12 @@ class MyGuiInterface {
         // Adiciona uma pasta para a mesa
         const tableFolder = this.datgui.addFolder('Table');
         const chairFolder = this.datgui.addFolder('Chair');
+        const cakeFolder = this.datgui.addFolder('Cake'); // Pasta para o bolo
 
         // Controle de habilitação
         tableFolder.add(this.contents.table, 'tableEnable').name("Enabled").onChange(() => { this.contents.table.rebuildTable(); });
         chairFolder.add(this.contents.chair, 'chairEnable').name("Enabled").onChange(() => { this.contents.chair.rebuildChair(); });
+        cakeFolder.add(this.contents.cake, 'cakeEnable').name("Enabled").onChange(() => { this.contents.cake.rebuildCake(); }); // Controle de habilitação do bolo
 
         // Controle das propriedades de deslocamento dos grupos
         tableFolder.add(this.contents.table.tableDisplacement, 'x', -10, 10).name("Table X");
@@ -45,6 +47,10 @@ class MyGuiInterface {
         chairFolder.add(this.contents.chair.chairDisplacement, 'x', -10, 10).name("Chair X");
         chairFolder.add(this.contents.chair.chairDisplacement, 'y', -10, 10).name("Chair Y");
         chairFolder.add(this.contents.chair.chairDisplacement, 'z', -10, 10).name("Chair Z");
+
+        cakeFolder.add(this.contents.cake.cakeDisplacement, 'x', -10, 10).name("Cake X"); // Controle de deslocamento do bolo
+        cakeFolder.add(this.contents.cake.cakeDisplacement, 'y', -10, 10).name("Cake Y");
+        cakeFolder.add(this.contents.cake.cakeDisplacement, 'z', -10, 10).name("Cake Z");
 
         // Controle das propriedades dos grupos
         tableFolder.add(this.contents.table, 'baseWidth', 1.0, 20.0).name("Base Width").onChange(() => { this.contents.table.rebuildTable(); });
@@ -58,8 +64,16 @@ class MyGuiInterface {
         chairFolder.add(this.contents.chair, 'lateralHeight', 0.5, 5.0).name("Lateral Height").onChange(() => { this.contents.chair.rebuildChair(); });
         chairFolder.add(this.contents.chair, 'lateralDepth', 1.0, 20.0).name("Lateral Depth").onChange(() => { this.contents.chair.rebuildChair(); });
 
+        // Controle das propriedades do bolo
+        cakeFolder.add(this.contents.cake, 'radiusTop', 1.0, 20.0).name("Top Radius").onChange(() => { this.contents.cake.rebuildCake(); });
+        cakeFolder.add(this.contents.cake, 'radiusBottom', 1.0, 20.0).name("Bottom Radius").onChange(() => { this.contents.cake.rebuildCake(); });
+        cakeFolder.add(this.contents.cake, 'height', 1.0, 20.0).name("Height").onChange(() => { this.contents.cake.rebuildCake(); });
+        cakeFolder.add(this.contents.cake, 'thetaStart', 0.0, Math.PI * 2).name("Theta Start").onChange(() => { this.contents.cake.rebuildCake(); });
+        cakeFolder.add(this.contents.cake, 'thetaLength', 0.1, Math.PI * 2).name("Theta Length").onChange(() => { this.contents.cake.rebuildCake(); }); // Controle da fatia removida
+
         tableFolder.open();
         chairFolder.open();
+        cakeFolder.open(); // Abre a pasta para o bolo
 
         const data = {
             'diffuse color': this.contents.plane.diffuseColor,
