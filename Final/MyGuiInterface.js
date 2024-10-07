@@ -33,34 +33,17 @@ class MyGuiInterface {
         const tableFolder = this.datgui.addFolder('Table');
 
         // Controle de habilitação da mesa
-        tableFolder.add(this.contents.table, 'tableBaseEnable').name("Enabled").onChange(() => { this.contents.table.rebuildTable(); });
+        tableFolder.add(this.contents.table, 'tableEnable').name("Enabled").onChange(() => { this.contents.table.rebuildTable(); });
 
-        // Controle das propriedades de deslocamento da base da mesa
-        tableFolder.add(this.contents.table.tableBaseDisplacement, 'x', -10, 10).name("Base X");
-        tableFolder.add(this.contents.table.tableBaseDisplacement, 'y', -10, 10).name("Base Y");
-        tableFolder.add(this.contents.table.tableBaseDisplacement, 'z', -10, 10).name("Base Z");
+        // Controle das propriedades de deslocamento da mesa inteira (Grupo)
+        tableFolder.add(this.contents.table.tableDisplacement, 'x', -10, 10).name("Table X");
+        tableFolder.add(this.contents.table.tableDisplacement, 'y', -10, 10).name("Table Y");
+        tableFolder.add(this.contents.table.tableDisplacement, 'z', -10, 10).name("Table Z");
 
         // Controle das propriedades de tamanho da mesa
         tableFolder.add(this.contents.table, 'baseWidth', 1.0, 20.0).name("Base Width").onChange(() => { this.contents.table.rebuildTable(); });
         tableFolder.add(this.contents.table, 'baseHeight', 0.5, 5.0).name("Base Height").onChange(() => { this.contents.table.rebuildTable(); });
         tableFolder.add(this.contents.table, 'baseDepth', 1.0, 20.0).name("Base Depth").onChange(() => { this.contents.table.rebuildTable(); });
-
-        // Controle das propriedades de deslocamento dos pés da mesa
-        tableFolder.add(this.contents.table.tableFoot1Displacement, 'x', -10, 10).name("Foot1 X");
-        tableFolder.add(this.contents.table.tableFoot1Displacement, 'y', -10, 10).name("Foot1 Y");
-        tableFolder.add(this.contents.table.tableFoot1Displacement, 'z', -10, 10).name("Foot1 Z");
-
-        tableFolder.add(this.contents.table.tableFoot2Displacement, 'x', -10, 10).name("Foot2 X");
-        tableFolder.add(this.contents.table.tableFoot2Displacement, 'y', -10, 10).name("Foot2 Y");
-        tableFolder.add(this.contents.table.tableFoot2Displacement, 'z', -10, 10).name("Foot2 Z");
-
-        tableFolder.add(this.contents.table.tableFoot3Displacement, 'x', -10, 10).name("Foot3 X");
-        tableFolder.add(this.contents.table.tableFoot3Displacement, 'y', -10, 10).name("Foot3 Y");
-        tableFolder.add(this.contents.table.tableFoot3Displacement, 'z', -10, 10).name("Foot3 Z");
-
-        tableFolder.add(this.contents.table.tableFoot4Displacement, 'x', -10, 10).name("Foot4 X");
-        tableFolder.add(this.contents.table.tableFoot4Displacement, 'y', -10, 10).name("Foot4 Y");
-        tableFolder.add(this.contents.table.tableFoot4Displacement, 'z', -10, 10).name("Foot4 Z");
 
         tableFolder.open();
 

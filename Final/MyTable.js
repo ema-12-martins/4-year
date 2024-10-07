@@ -3,29 +3,28 @@ import * as THREE from 'three';
 class MyTable {
     constructor(app) {
         this.app = app;
-        this.tableBaseEnable = true;
-        this.lastTableBaseEnabled = null;
+        this.tableEnable = true;
+        this.lastTableEnabled = null;
 
         // Propriedades de deslocamento
-        this.tableBaseDisplacement = new THREE.Vector3(0, 4, 0);
-        this.tableFoot1Displacement = new THREE.Vector3(-2, 2, -5);
-        this.tableFoot2Displacement = new THREE.Vector3(-2, 2, 5);
-        this.tableFoot3Displacement = new THREE.Vector3(2, 2, -5);
-        this.tableFoot4Displacement = new THREE.Vector3(2, 2, 5);
+        this.tableDisplacement = new THREE.Vector3(0, 4, 0);
 
-        // Propriedades de tamanho (mantain the proporcionality)
+        // Propriedades de tamanho (mantendo a proporcionalidade)
         this.baseWidth = 6.0;
-        this.baseHeight = 1.0;
-        this.baseDepth = 12.0;
+        this.baseHeight = 12.0;
+        this.baseDepth = 1.0;
         this.footRadius = 0.4;
-        this.footHeight = 5.0;
+        this.footHeight = 7;
+
+        // Grupo que irá conter todos os componentes da mesa
+        this.tableGroup = new THREE.Group();
     }
 
     /**
      * Builds the table mesh with material assigned
      */
     buildTable() {
-        let boxMaterial = new THREE.MeshPhongMaterial({
+        let material = new THREE.MeshPhongMaterial({
             color: "#784008",
             specular: "#000000",
             emissive: "#000000",
@@ -33,101 +32,75 @@ class MyTable {
         });
 
         // Geometria da base da mesa
-        let box = new THREE.BoxGeometry(6.0, 12.0, 1);
-        this.tableBaseMesh = new THREE.Mesh(box, boxMaterial);
-        this.tableBaseMesh.rotation.x = -Math.PI / 2;
-        this.tableBaseMesh.position.copy(this.tableBaseDisplacement);
+        let base = new THREE.BoxGeometry(this.baseWidth, this.baseHeight, this.baseDepth);
+        let tableBaseMesh = new THREE.Mesh(base, material);
+        tableBaseMesh.rotation.x = -Math.PI / 2;
+        tableBaseMesh.position.y = 2; // Altura ajustada para centralizar a base
 
         // Geometria dos pés da mesa
         let footGeometry = new THREE.CylinderGeometry(this.footRadius, this.footRadius, this.footHeight, 40);
-        this.foot1Mesh = new THREE.Mesh(footGeometry, boxMaterial);
-        this.foot1Mesh.position.copy(this.tableFoot1Displacement);
 
-        this.foot2Mesh = new THREE.Mesh(footGeometry.clone(), boxMaterial);
-        this.foot2Mesh.position.copy(this.tableFoot2Displacement);
+        let foot1Mesh = new THREE.Mesh(footGeometry, material);
+        foot1Mesh.position.set(-2, -1, -5);  // Centraliza os pés em relação à base
 
-        this.foot3Mesh = new THREE.Mesh(footGeometry.clone(), boxMaterial);
-        this.foot3Mesh.position.copy(this.tableFoot3Displacement);
+        let foot2Mesh = new THREE.Mesh(footGeometry, material);
+        foot2Mesh.position.set(-2, -1, 5);
 
-        this.foot4Mesh = new THREE.Mesh(footGeometry.clone(), boxMaterial);
-        this.foot4Mesh.position.copy(this.tableFoot4Displacement);
+        let foot3Mesh = new THREE.Mesh(footGeometry, material);
+        foot3Mesh.position.set(2, -1, -5);
+
+        let foot4Mesh = new THREE.Mesh(footGeometry, material);
+        foot4Mesh.position.set(2, -1, 5);
+
+        // Adiciona todos os componentes ao grupo da mesa
+        this.tableGroup.add(tableBaseMesh);
+        this.tableGroup.add(foot1Mesh);
+        this.tableGroup.add(foot2Mesh);
+        this.tableGroup.add(foot3Mesh);
+        this.tableGroup.add(foot4Mesh);
+
+        // Define a posição inicial do grupo
+        this.tableGroup.position.copy(this.tableDisplacement);
+
+        // Adiciona o grupo à cena
+        this.app.scene.add(this.tableGroup);
     }
 
     /**
      * Rebuilds the table if required
      */
     rebuildTable() {
-        if (this.tableBaseMesh) {
-            this.app.scene.remove(this.tableBaseMesh);
-        }
-        if (this.foot1Mesh) {
-            this.app.scene.remove(this.foot1Mesh);
-        }
-        if (this.foot2Mesh) {
-            this.app.scene.remove(this.foot2Mesh);
-        }
-        if (this.foot3Mesh) {
-            this.app.scene.remove(this.foot3Mesh);
-        }
-        if (this.foot4Mesh) {
-            this.app.scene.remove(this.foot4Mesh);
+        if (this.tableGroup) {
+            this.app.scene.remove(this.tableGroup);
         }
 
+        this.tableGroup = new THREE.Group(); // Reseta o grupo
         this.buildTable();
-
-        // Adiciona novamente os meshes à cena se a mesa estiver habilitada
-        if (this.tableBaseEnable) {
-            this.app.scene.add(this.tableBaseMesh);
-            this.app.scene.add(this.foot1Mesh);
-            this.app.scene.add(this.foot2Mesh);
-            this.app.scene.add(this.foot3Mesh);
-            this.app.scene.add(this.foot4Mesh);
-        }
-
-        this.lastTableBaseEnabled = null;
+        this.lastTableEnabled = null;
     }
 
     /**
      * Updates the table if required
      */
     updateTableIfRequired() {
-        if (this.tableBaseEnable !== this.lastTableBaseEnabled) {
-            this.lastTableBaseEnabled = this.tableBaseEnable;
-            if (this.tableBaseEnable) {
-                this.app.scene.add(this.tableBaseMesh);
-                this.app.scene.add(this.foot1Mesh);
-                this.app.scene.add(this.foot2Mesh);
-                this.app.scene.add(this.foot3Mesh);
-                this.app.scene.add(this.foot4Mesh);
+        if (this.tableEnable !== this.lastTableEnabled) {
+            this.lastTableEnabled = this.tableEnable;
+            if (this.tableEnable) {
+                this.app.scene.add(this.tableGroup);
             } else {
-                this.app.scene.remove(this.tableBaseMesh);
-                this.app.scene.remove(this.foot1Mesh);
-                this.app.scene.remove(this.foot2Mesh);
-                this.app.scene.remove(this.foot3Mesh);
-                this.app.scene.remove(this.foot4Mesh);
+                this.app.scene.remove(this.tableGroup);
             }
         }
     }
 
     /**
-     * Updates the table position
+     * Updates the table position as a whole
      */
     update() {
         this.updateTableIfRequired();
-        if (this.tableBaseMesh) {
-            this.tableBaseMesh.position.copy(this.tableBaseDisplacement);
-        }
-        if (this.foot1Mesh) {
-            this.foot1Mesh.position.copy(this.tableFoot1Displacement);
-        }
-        if (this.foot2Mesh) {
-            this.foot2Mesh.position.copy(this.tableFoot2Displacement);
-        }
-        if (this.foot3Mesh) {
-            this.foot3Mesh.position.copy(this.tableFoot3Displacement);
-        }
-        if (this.foot4Mesh) {
-            this.foot4Mesh.position.copy(this.tableFoot4Displacement);
+        if (this.tableGroup) {
+            // Mova a mesa inteira como um único grupo
+            this.tableGroup.position.copy(this.tableDisplacement);
         }
     }
 }

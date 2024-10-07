@@ -38,7 +38,7 @@ class MyContents {
         const ambientLight = new THREE.AmbientLight(0x555555);
         this.app.scene.add(ambientLight);
 
-        this.table.buildTable(); // Construir a caixa
+        this.table.buildTable(); // Construir a mesa
 
         let plane = new THREE.PlaneGeometry(20, 20);
         this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
@@ -63,7 +63,7 @@ class MyContents {
     }
 
     update() {
-        this.table.update(); // Atualiza a caixa
+        this.table.update(); // Atualiza a mesa
     }
 }
 
