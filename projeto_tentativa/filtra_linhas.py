@@ -24,8 +24,8 @@ def filtrar_conteudo(entrada, saida):
 
 if __name__ == "__main__":
     try:
-        arquivo_entrada = sys[1]
-        arquivo_saida = sys[2]
+        arquivo_entrada = sys.argv[1]
+        arquivo_saida = sys.argv[2]
         filtrar_conteudo(arquivo_entrada, arquivo_saida)
-    except:
-        print("Houve algum problema a abrir o ficheiro")
+    except Exception as e:
+        print(f"Houve algum problema ao abrir o arquivo: {e}")
