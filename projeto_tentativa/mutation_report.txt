@@ -1,0 +1,19 @@
+[*] Start mutation process:
+   - targets: my_code
+   - tests: test_my_code
+[*] 1 tests passed:
+   - test_my_code [0.00013 s]
+[*] Start mutants generation and execution:
+   - [#   1] AOR my_code: 
+--------------------------------------------------------------------------------
+  1: def add(a, b):
+- 2:     return a + b
++ 2:     return a - b
+--------------------------------------------------------------------------------
+[0.00606 s] killed by test_add (test_my_code.TestAdd)
+[*] Mutation score [0.01504 s]: 100.0%
+   - all: 1
+   - killed: 1 (100.0%)
+   - survived: 0 (0.0%)
+   - incompetent: 0 (0.0%)
+   - timeout: 0 (0.0%)
